@@ -1,5 +1,8 @@
 .mainBody{
+  width: 500px;
+  margin: auto auto;
   text-align: center;
+  border:1px solid black
 }
 
 .betInfo{
@@ -9,4 +12,8 @@
 .betNow{
   color: red;
   font-size: 50px;
+}
+.mainButtonsMenu{
+  display: flex;
+  justify-content:center;
 }
