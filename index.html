@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./styles.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="mainBody">
+            <p>ballance total: <span class="ballance"></span></p>
+            <p>BET NOW: <span class="betNow"></span></p>
+            <p>Total games: <span class="totalGames"></span></p>
+            <p>Lost Rounds: <span class="lost_rounds"></span></p>
+            <div class="mainButtonsMenu">
+                <button class="button__win">win</button>
+                <button class="button__lost">lost</button>
+                <button class="bj__win">BJ</button>
+                <button class="button__draw">draw</button>
+            </div>
+            <div class="otherButtonsMenu">
+                <button data="double" class="button__double side">
+                    double
+                </button>
+                <button data="split" class="button__split side">split</button>
+                <div>
+                    <button data="insurance" class="button__insurance side">
+                        insurance
+                    </button>
+                    <div>
+                        <button disabled class="side_insurance win">
+                            BJ dealer
+                        </button>
+                        <button disabled class="side_insurance lost">
+                            no BJ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="./index.js"></script>
+    </body>
+</html>
