@@ -7,10 +7,14 @@
 }
 
 .betInfo{
+  display: flex;
+  justify-content: space-evenly;
+  align-items:center;
   text-align: center;
   font-size: 30px;
 }
 .betNow{
+  font-weight: 700;
   color: red;
   font-size: 50px;
 }
