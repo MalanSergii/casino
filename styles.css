@@ -1,3 +1,12 @@
 .mainBody{
   text-align: center;
 }
+
+.betInfo{
+  text-align: center;
+  font-size: 30px;
+}
+.betNow{
+  color: red;
+  font-size: 50px;
+}
