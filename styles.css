@@ -1,5 +1,5 @@
 .mainBody{
-  width: 300px;
+  width: 95%;
   height: 95vh;
   margin: auto auto;
   text-align: center;
@@ -17,8 +17,12 @@
 .mainButtonsMenu{
   display: flex;
   justify-content:space-around;
+  margin-bottom: 20px;
 }
 .button{
   min-width: 60px;
   min-height: 40px;
+}
+.side__buttons--ds{
+  margin-bottom: 20px;
 }
