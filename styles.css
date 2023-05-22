@@ -1,6 +1,6 @@
 .mainBody{
   width: 95%;
-  height: 95vh;
+  min-height: 500px;
   margin: auto auto;
   text-align: center;
   border:1px solid black
@@ -25,12 +25,58 @@
   margin-bottom: 25px;
 }
 .button{
-  min-width: 60px;
+  border-radius: 4px;
+  min-width: 65px;
   min-height: 40px;
+}
+.button:hover:not(:disabled){
+  /* color: orange; */
+  cursor: pointer;
+  border: 5px solid orange;
+  border-radius: 4px;
+}
+.button:disabled{
+  background-color: rgb(203, 201, 201)  
+}
+.button__win{
+  background-color: greenyellow;
+}
+.button__lost{
+  background-color: palevioletred;
+}
+.bj__win{
+  /* color: antiquewhite; */
+  background-color: green;
+}
+.button__draw{
+    /* color: antiquewhite; */
+  background-color: blueviolet;
 }
 .side__buttons--ds{
   margin-bottom: 25px;
 }
 .button__insurance{
   margin-bottom: 10px;
+}
+
+/* .hidden{
+  display: none;
+}
+.visible{
+  display: inline-block ;
+} */
+.side_insurance{
+  width: 90px;
+}
+.button__double, 
+.button__double{
+  width: 70px;
+}
+
+.win:not(:disabled){
+  background-color: pink;
+}
+
+.lost:not(:disabled){
+  background-color: rgb(175, 250, 174);
 }

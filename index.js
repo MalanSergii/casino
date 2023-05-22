@@ -3,7 +3,9 @@ console.log("");
 
 //=================================================================
 let BET = 20;
-let BALLANCE = 10040;
+// let moneyONStart = Number(prompt("money on start"));
+let moneyONStart = 40720;
+let BALLANCE = moneyONStart;
 let TOTAL_LOST = 0;
 let LOST_ROUNDS = 0;
 let TOTAL_GAMES = 0;
@@ -12,9 +14,11 @@ let insuranceCounter = 0;
 let BJ_counter = 0;
 let DRAW_counter = 0;
 let sideBet = 0;
+let winMoney = 0;
 
 const refs = {
     ballance: document.querySelector(".ballance"),
+    winMoney: document.querySelector(".money"),
     bet: document.querySelector(".betNow"),
     lostRounds: document.querySelector(".lost_rounds"),
     totalGames: document.querySelector(".totalGames"),
@@ -24,24 +28,28 @@ const refs = {
     buttonDraw: document.querySelector(".button__draw"),
     buttonDouble: document.querySelector(".button__double"),
     buttonSplit: document.querySelector(".button__split"),
+    sideButtSplitWin: document.querySelector(".push_win"),
+    sideButtSplitLost: document.querySelector(".push_lost"),
     buttonInsurance: document.querySelector(".button__insurance"),
     sideButtInsuranceWin: document.querySelector(".win"),
     sideButtInsuranceLost: document.querySelector(".lost"),
 };
+
 refs.ballance.textContent = BALLANCE;
 refs.bet.textContent = BET;
 refs.lostRounds.textContent = LOST_ROUNDS;
 refs.totalGames.textContent = TOTAL_GAMES;
+refs.winMoney.textContent = winMoney;
 //=================================================================
 function recountParams() {
     refs.ballance.textContent = BALLANCE;
     refs.bet.textContent = BET;
     refs.lostRounds.textContent = LOST_ROUNDS;
     refs.totalGames.textContent = TOTAL_GAMES;
+    winMoney = BALLANCE - moneyONStart;
+    refs.winMoney.textContent = winMoney;
 }
-function betCount() {
-    BET = BET * 2 + 20;
-}
+
 function gamesCounter() {
     TOTAL_GAMES += 1;
 }
@@ -51,14 +59,18 @@ function onWin() {
     BET = 20;
     sideBet = 0;
     LOST_ROUNDS = 0;
+    refs.sideButtSplitWin.disabled = true;
+    refs.sideButtSplitLost.disabled = true;
     closeInsurance();
     recountParams();
 }
 function onLost() {
-    BALLANCE -= BET + sideBet;
+    BALLANCE -= BET;
     LOST_ROUNDS += 1;
     BET = BET * 2 + 20 + sideBet;
     sideBet = 0;
+    refs.sideButtSplitWin.disabled = true;
+    refs.sideButtSplitLost.disabled = true;
     closeInsurance();
     recountParams();
 }
@@ -69,21 +81,21 @@ function onBJ() {
     LOST_ROUNDS = 0;
     BJ_counter += 1;
     recountParams();
-    console.log("BJ_counter", BJ_counter);
 }
 function onDraw() {
     DRAW_counter += 1;
-    BET += 20;
+    BALLANCE += sideBet;
     sideBet = 0;
-    console.log("DRAW_counter", DRAW_counter);
+    refs.sideButtSplitWin.disabled = true;
+    refs.sideButtSplitLost.disabled = true;
     closeInsurance();
     recountParams();
 }
 //=================================================================
 function onDouble() {
     sideBet = BET;
+    BALLANCE -= sideBet;
     recountParams();
-    console.log("sideBet", sideBet);
     refs.buttonBJ.disabled = true;
     refs.buttonSplit.disabled = true;
     refs.buttonInsurance.disabled = true;
@@ -91,28 +103,43 @@ function onDouble() {
 }
 function onSplit() {
     sideBet = BET;
+    BALLANCE -= sideBet;
     recountParams();
-    console.log("sideBet", sideBet);
     refs.buttonBJ.disabled = true;
     refs.buttonSplit.disabled = true;
     refs.buttonInsurance.disabled = true;
     refs.buttonDouble.disabled = true;
+    refs.sideButtSplitWin.disabled = false;
+    refs.sideButtSplitLost.disabled = false;
+}
+function onSideBtnSplitWin() {
+    BALLANCE += sideBet;
+    sideBet = 0;
+    TOTAL_GAMES += 1;
+    refs.sideButtSplitWin.disabled = true;
+    refs.sideButtSplitLost.disabled = true;
+    onWin();
+}
+function onSideBtnSplitLost() {
+    BALLANCE += sideBet;
+    sideBet = 0;
+    TOTAL_GAMES += 1;
+    refs.sideButtSplitWin.disabled = true;
+    refs.sideButtSplitLost.disabled = true;
+    onLost();
 }
 //=================================================================
 function onInsurance() {
     INSURANCE = BET / 2;
     BALLANCE -= INSURANCE;
-    console.log("INSURANCE value", INSURANCE);
     insuranceCounter += 1;
     recountParams();
     openInsurance();
-    console.log("insuranceCounter", insuranceCounter);
 }
 function onInsuranceWin() {
     BALLANCE += INSURANCE * 3 - BET;
     BET += 20;
     DRAW_counter += 1;
-    console.log(DRAW_counter);
     recountParams();
     closeInsurance();
 }
@@ -120,7 +147,6 @@ function onInsuranceLost() {
     recountParams();
     closeInsurance();
     refs.buttonInsurance.disabled = true;
-    refs.buttonBJ.disabled = true;
     refs.buttonDouble.disabled = true;
     refs.buttonSplit.disabled = true;
 }
@@ -179,5 +205,11 @@ document.querySelector(".mainBody").addEventListener("click", (event) => {
     }
     if (event.target === refs.buttonSplit) {
         onSplit();
+    }
+    if (event.target === refs.sideButtSplitWin) {
+        onSideBtnSplitWin();
+    }
+    if (event.target === refs.sideButtSplitLost) {
+        onSideBtnSplitLost();
     }
 });
